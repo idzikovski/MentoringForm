@@ -9,45 +9,12 @@
 
 <body>
     <h3>Submit your proposal</h3>
-    <form id="contactForm">
-        <input type="text" id="name" placeholder="Your Name" style="width: 20em;" required><br>
-        <input type="email" id="email" placeholder="Your Email" style="width: 20em;" required><br>
-        <textarea id="proposal" placeholder="Your Proposal" rows="10" cols="50" required></textarea><br>
+    <form id="contactForm" method="post" action="https://mentorship-proxy-app.livelycoast-efe2f211.westeurope.azurecontainerapps.io/create-item">
+        <input type="text" id="name" name="name" placeholder="Your Name" style="width: 20em;" required><br>
+        <input type="email" id="email" name="email" placeholder="Your Email" style="width: 20em;" required><br>
+        <textarea id="proposal" name="proposal" placeholder="Your Proposal" rows="10" cols="50" required></textarea><br>
         <button type="submit">Submit</button>
-        <img id="indicator" alt="indicator" src="indicator.gif" style="width: 3em;" hidden/>
     </form>
-
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
-    <script src="initialize.js"></script>
-
-    <script>
-        // Form submission handler
-        document.getElementById('contactForm').addEventListener('submit', function (e) {
-            e.preventDefault();
-
-            document.getElementById('indicator').hidden = false;
-
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const proposal = document.getElementById('proposal').value;
-
-            //Save to Firestore
-            db.collection("proposals").add({
-                name: name,
-                email: email,
-                proposal: proposal
-            })
-                .then(() => {
-                    window.location.href = 'thankyou.html';
-
-                })
-                .catch(error => {
-                    console.error('Error writing document: ', error);
-                    alert('Error writing document: '+ error);
-                });
-        });
-    </script>
 </body>
 
 </html>
